@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# iuvity-test
-=======
   # Code challenge para aspirantes full stack javascript TODO1
 
   El objetivo del presente repositorio es para validar los conocimientos del aspirante mediante una prueba progresiva en cuanto dificultad se refiere.
@@ -43,4 +40,3 @@
   Cualquier duda sobre el ejercicio, por favor remitirla a Santiago Sánchez ssanchez@todo1.com para su aclaramiento.
 
   Mucha suerte!!!
->>>>>>> 268b8a1 ('')
