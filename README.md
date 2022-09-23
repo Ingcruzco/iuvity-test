@@ -8,7 +8,7 @@
   4. yarn start
 
 
-  ###Para correrlo sobre Docker despues del haber corrido el comando build: 
+### Para correrlo sobre Docker despues del haber corrido el comando build: 
 
   - en la temrinal/CMD ejecute docker run --rm -p 3000:3000 react-image
 
