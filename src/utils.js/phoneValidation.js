@@ -5,10 +5,7 @@ export const phoneValidation = (e) =>{
     let correctPhone = 
     e.target.value.trim()
             .replace(/ /g,'')
-            .replace('(','')
-            .replace(')','')
-            .replace('-','')
-            .replace('+','');
+            .replace(/[+()]/g,'');
 
     if (correctPhone.toString().length < 10 || isValidNumber ) return
     if (correctPhone.toString().length > 13) correctPhone = correctPhone.toString().slice(0,13)
