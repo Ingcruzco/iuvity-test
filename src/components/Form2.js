@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useState,useEffect } from 'react'
 import {
   TextField,
   Button
@@ -23,7 +23,15 @@ const Form2 = ({ setStep, formHandler }) => {
   const [open, setOpen] = useState(false);
   const [toast, setToast] = useState({type:"success", message:status.success});
   const [ formValues, handleInputValues, reset ] = formHandler;
+  const [didMount, setDidMount] = useState(true)
   
+  useEffect(() => {
+    setDidMount(true)
+    return () => { 
+      setDidMount(false);
+    }
+  },[])
+
   const onSubmit = (event) => {
     event.preventDefault();
 
@@ -34,16 +42,18 @@ const Form2 = ({ setStep, formHandler }) => {
     createUser(formValues,setUsers)
       .then(() => {
         reset()
-        setToast({type:"success", message:status.success})
+        didMount && setToast({type:"success", message:status.success})
       })
       .catch( err => {
         console.log(err)
-        setToast({type:"error", message:status.error})
+        didMount && setToast({type:"error", message:status.error})
       } );
     setLoading(false);
     setOpen(true);
     setStep(0);
+    
   }
+ 
   return (
     <>
       <form
