@@ -2,8 +2,10 @@ const errorsTypes = {
 	empty: 'No se permiten campos vacios',
 	lettersAndAccent: 'Solamente se permiten letras y acentos',
 	email: 'Proporcione un email valido',
-	phone: 'Igrese un telefono de mas de 6 cifras',
-	cc: 'Igrese un Documento de identidad valido (+6 digitos)'
+	phone: 'Igrese un telefono de por lo menos 10 cifras',
+	cc: 'Igrese un Documento de identidad valido (+6 digitos)',
+	phoneCharacters: 'Solamente se permiten números y los caracteres especiales (,) y +	',
+	phoneOverload: 'El máximo de digitos es 12'
 }
 
 export const lettersAndAccentValidator = field => {
@@ -22,6 +24,36 @@ const lengthValidation = (fieldName, fieldValue ) =>{
 	return fieldValue.toString().length < 7 && errorType;
 }
 
+const validatePhoneNumber = (phoneNumber) => {
+	const isValidNumber = hasSpecialCharacters(phoneNumber)
+    let correctPhone = 
+        phoneNumber.trim()
+            .replace(' ','')
+            .replace('(','')
+            .replace(')','')
+            .replace('-','')
+            .replace('+','');
+		if ( isValidNumber ) return errorsTypes.phoneCharacters;
+    if (correctPhone.toString().length < 10  ) return errorsTypes.phone;
+		if (correctPhone.toString().length > 14 ) return errorsTypes.phoneOverload;
+    if (correctPhone.toString().length > 10){
+        let rightPhone = correctPhone.slice(-7)
+        let middlePhone = correctPhone.slice(correctPhone.length - 10, correctPhone.length - 7)
+        let leftPhone = correctPhone.slice(0, correctPhone.length - 10)
+        correctPhone = `+(${leftPhone}) ${middlePhone} ${rightPhone}`
+    } else {
+        let rightPhone = correctPhone.slice(-7)
+        let middlePhone = correctPhone.slice(correctPhone.length - 10, correctPhone.length - 7)
+        correctPhone = `${middlePhone} ${rightPhone}`
+    }
+    return false
+}
+
+const hasSpecialCharacters= (phoneNumber) => {
+	const regex = /[`!@#$%^&*_\=\[\]{};':"\\|,.<>\/?~a-zA-Z]|[a-zA-ZÀ-ÿ\u00f1\u00d1]/g;
+	return regex.test(phoneNumber);
+}
+
 export const errorFormHandler = (formValues,setErrors,optionsInForm) => {
 	let foundErrors = false
 	for(const [ fieldName, fieldValue ] of Object.entries(formValues)){
@@ -32,7 +64,7 @@ export const errorFormHandler = (formValues,setErrors,optionsInForm) => {
 				errorMessage = emailValidation(fieldValue);
 				break;
 			case 'phoneNumber':
-				errorMessage = lengthValidation(fieldName,fieldValue);
+				errorMessage = validatePhoneNumber(fieldValue);
 				break;
 			case 'cc':
 				errorMessage = lengthValidation(fieldName,fieldValue);

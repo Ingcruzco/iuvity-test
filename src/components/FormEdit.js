@@ -15,6 +15,7 @@ import { UsersContext } from '../App';
 import { status } from '../utils.js/status.users';
 import useFormStyles from '../styles/useFormFields'
 import Toast from './Toast';
+import { phoneValidation } from '../utils.js/phoneValidation';
 
 const optionsInForm = [
   'name',
@@ -145,9 +146,7 @@ export default function FormEdit ({openModal, setOpenModal, id}) {
               onChange = { handleInputValues }
               error= { Boolean(errors?.phoneNumber) }
               helperText ={ errors?.phoneNumber?.message }
-              onInput = {(e) =>{
-                e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,12)
-              }}
+              onInput = { phoneValidation }
             />
             <TextField
               className={classes.formField}

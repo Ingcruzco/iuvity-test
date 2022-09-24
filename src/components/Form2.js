@@ -9,6 +9,7 @@ import { status } from '../utils.js/status.users'
 import useFormStyles from '../styles/useFormFields'
 import { UsersContext } from '../App'
 import Toast from './Toast'
+import { phoneValidation } from '../utils.js/phoneValidation'
 
 
 const optionsInForm = [
@@ -53,7 +54,7 @@ const Form2 = ({ setStep, formHandler }) => {
     setStep(0);
     
   }
- 
+
   return (
     <>
       <form
@@ -77,15 +78,12 @@ const Form2 = ({ setStep, formHandler }) => {
           fullWidth
           required
           id="phoneNumber"
-          type = "number"
           label="Teléfono"
           value={ formValues?.phoneNumber || ''}
           onChange = { handleInputValues }
           error= { Boolean(errors?.phoneNumber) }
           helperText ={ errors?.phoneNumber?.message }
-          onInput = {(e) =>{
-            e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,12)
-          }}
+          onInput = {phoneValidation}
         />
 
         <TextField

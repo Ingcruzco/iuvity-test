@@ -104,12 +104,14 @@ const TableData = ({ users }) => {
                     {user.cc}
                   </TableCell>
                   <TableCell sx={{display:'flex', justifyContent:'row'}}>
+                    <div>
                     <IconButton aria-label="delete" onClick= {() => handleDeleteUser(user._id)}>
                       <DeleteIcon/>
                     </IconButton>
                     <IconButton onClick= {() => handleUpdateUser(user._id)}>
                       <CreateIcon />
                     </IconButton>
+                    </div>
                   </TableCell>
                 </TableRow>
                 ))}
