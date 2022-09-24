@@ -28,7 +28,7 @@ const validatePhoneNumber = (phoneNumber) => {
 	const isValidNumber = hasSpecialCharacters(phoneNumber)
     let correctPhone = 
         phoneNumber.trim()
-            .replace(' ','')
+            .replace(/ /g,'')
             .replace('(','')
             .replace(')','')
             .replace('-','')
