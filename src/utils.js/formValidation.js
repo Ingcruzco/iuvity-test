@@ -29,11 +29,8 @@ const validatePhoneNumber = (phoneNumber) => {
     let correctPhone = 
         phoneNumber.trim()
             .replace(/ /g,'')
-            .replace('(','')
-            .replace(')','')
-            .replace('-','')
-            .replace('+','');
-		if ( isValidNumber ) return errorsTypes.phoneCharacters;
+            .replace(/[+()]/g,'');
+    if ( isValidNumber ) return errorsTypes.phoneCharacters;
     if (correctPhone.toString().length < 10  ) return errorsTypes.phone;
 		if (correctPhone.toString().length > 14 ) return errorsTypes.phoneOverload;
     if (correctPhone.toString().length > 10){
